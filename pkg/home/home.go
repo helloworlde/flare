@@ -308,7 +308,7 @@ func render(c *gin.Context, filter string) {
 		"星期五",
 		"星期六",
 	}
-	c.Header("Content-Security-Policy", "script-src 'none'; object-src 'none'; base-uri 'none'; require-trusted-types-for 'script'; report-uri 'none';")
+	c.Header("Content-Security-Policy", "script-src 'unsafe-inline'; object-src 'none'; base-uri 'none'; require-trusted-types-for 'script'; report-uri 'none';")
 
 	bodyClassName := ""
 	if !options.KeepLetterCase {

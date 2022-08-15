@@ -45,7 +45,9 @@
         <div id="plugin-datetime">
           {{ if .OptionShowDateTime }}
           <p>
-            <span>{{.HeroDate}}</span> <span>{{.HeroDay}}</span> <span>{{.HeroTime}}</span>
+            <label id="date-time">
+              <span>{{.HeroDate}}</span> <span>{{.HeroDay}}</span> <span>{{.HeroTime}}</span>
+            </label>
           </p>
           {{ end }}
 
@@ -130,4 +132,24 @@
 
 
 </body>
+<script>
+  function updateTime() {
+    let date = new Date();
+    let year = date.getFullYear();
+    let month = ("0" + (date.getMonth() + 1)).slice(-2)
+    let day = date.getDate();
+    let hour = date.getHours();
+    let minute = date.getMinutes();
+    let second = date.getSeconds();
+    let week = date.getDay();
+    let week_str = ["日", "一", "二", "三", "四", "五", "六"];
+
+
+    let timeContent = year + "年" + month + "月" + day + "日 星期" + week_str[week] + " " + hour + ":" + minute + ":" + second;
+
+    document.getElementById("date-time").innerHTML = timeContent;
+  }
+
+  setInterval(updateTime, 1000);
+</script>
 </html>
