@@ -4,7 +4,9 @@ import (
 	"embed"
 	"io/fs"
 	"net/http"
+	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/soulteary/memfs"
@@ -38,7 +40,9 @@ func GetIconByName(name string) string {
 	if name == "" {
 		return _EMPTY_ICON
 	}
-	svgFile := filepath.Join(_ASSETS_ICON_DIR, name+".svg")
-
+	svgFile := filepath.Join(_ASSETS_ICON_DIR, strings.ToLower(name)+".svg")
+	if _, err := os.Stat(svgFile); err == nil {
+		return _EMPTY_ICON
+	}
 	return `<img src="/` + svgFile + `" width="68" height="68" alt="">`
 }
