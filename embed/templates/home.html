@@ -147,7 +147,7 @@
 
     let timeContent = year + "年" + month + "月" + day + "日 星期" + week_str[week] + " " + hour + ":" + minute + ":" + second;
 
-    document.getElementById("date-time").innerHTML = timeContent;
+    document.getElementById("date-time").innerText = timeContent;
   }
 
   setInterval(updateTime, 1000);
