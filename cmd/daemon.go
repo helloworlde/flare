@@ -11,13 +11,14 @@ import (
 	"github.com/gin-contrib/gzip"
 	"github.com/gin-gonic/gin"
 	"github.com/soulteary/flare/internal/logger"
+	FlareMDI "github.com/soulteary/flare/pkg/mdi"
+	SimpleIcon "github.com/soulteary/flare/pkg/simpleicon"
 
 	FlareModel "github.com/soulteary/flare/model"
 	FlareState "github.com/soulteary/flare/state"
 
 	FlareAssets "github.com/soulteary/flare/pkg/assets"
 	FlareAuth "github.com/soulteary/flare/pkg/auth"
-	FlareMDI "github.com/soulteary/flare/pkg/mdi"
 	FlareTemplates "github.com/soulteary/flare/pkg/templates"
 
 	FlareAppearance "github.com/soulteary/flare/pkg/appearance"
@@ -57,6 +58,9 @@ func startDaemon(AppFlags *FlareModel.Flags) {
 
 	FlareMDI.Init()
 	FlareMDI.RegisterRouting(router)
+
+	SimpleIcon.Init()
+	SimpleIcon.RegisterRouting(router)
 
 	FlareTemplates.RegisterRouting(router)
 	FlareAppearance.RegisterRouting(router)

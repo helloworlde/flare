@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	SimpleIcon "github.com/soulteary/flare/pkg/simpleicon"
 	"github.com/soulteary/memfs"
 
 	FlareState "github.com/soulteary/flare/state"
@@ -55,7 +56,8 @@ func GetIconByName(name string) string {
 
 	icon := iconMap[strings.ToLower(name)]
 	if icon == "" {
-		return _EMPTY_ICON
+		// 如果找不到从 SimpleIcon 中查找
+		return SimpleIcon.GetIconByName(name)
 	}
 
 	content := ""

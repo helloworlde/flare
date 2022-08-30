@@ -24,6 +24,7 @@ pkg/mdi/mdi-cheat-sheets
 pkg/guide/guide-assets
 pkg/editor/editor-assets
 pkg/weather/icons
+pkg/simpleicon/icons
 .DS_Store
 tmp
 apps.yml
