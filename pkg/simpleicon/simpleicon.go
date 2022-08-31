@@ -4,11 +4,11 @@ import (
 	"embed"
 	"io/fs"
 	"net/http"
-	"os"
 	"path/filepath"
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	"github.com/soulteary/flare/internal/logger"
 	"github.com/soulteary/memfs"
 )
 
@@ -19,6 +19,8 @@ const _ASSETS_ICON_URI = "/" + _ASSETS_ICON_DIR
 
 //go:embed icons
 var SimpleIconsAssets embed.FS
+var simpleIcons map[string]string
+var log = logger.GetLogger()
 
 func Init() {
 	MemFs = memfs.New()
@@ -27,6 +29,18 @@ func Init() {
 	if err != nil {
 		panic(err)
 	}
+
+	simpleIcons = make(map[string]string)
+
+	dirs, err := SimpleIconsAssets.ReadDir("icons")
+	if err != nil {
+		panic(err)
+	}
+	for i := range dirs {
+		file := dirs[i]
+		simpleIcons[strings.ToLower(file.Name())] = file.Name()
+	}
+	log.Println("初始化 Simple icon 共 ", len(simpleIcons), " 个")
 }
 
 func RegisterRouting(router *gin.Engine) {
@@ -41,8 +55,10 @@ func GetIconByName(name string) string {
 		return _EMPTY_ICON
 	}
 	svgFile := filepath.Join(_ASSETS_ICON_DIR, strings.ToLower(name)+".svg")
-	if _, err := os.Stat(svgFile); err == nil {
+	if _, ok := simpleIcons[strings.ToLower(name)+".svg"]; ok {
+		return `<img src="/` + svgFile + `" width="68" height="68" alt="">`
+	} else {
+		log.Println("Simple icon '" + name + "' 不存在")
 		return _EMPTY_ICON
 	}
-	return `<img src="/` + svgFile + `" width="68" height="68" alt="">`
 }
