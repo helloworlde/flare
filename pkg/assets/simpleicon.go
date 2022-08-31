@@ -1,4 +1,4 @@
-package mdi
+package assets
 
 import (
 	"embed"
@@ -14,7 +14,7 @@ import (
 
 var MemFs *memfs.FS
 
-const _ASSETS_ICON_DIR = "simpleicon/icons"
+const _ASSETS_ICON_DIR = "assets/icons"
 const _ASSETS_ICON_URI = "/" + _ASSETS_ICON_DIR
 
 //go:embed icons
@@ -22,7 +22,7 @@ var SimpleIconsAssets embed.FS
 var simpleIcons map[string]string
 var log = logger.GetLogger()
 
-func Init() {
+func InitIcon() {
 	MemFs = memfs.New()
 	err := MemFs.MkdirAll(_ASSETS_ICON_DIR, 0777)
 
@@ -43,7 +43,7 @@ func Init() {
 	log.Println("初始化 Simple icon 共 ", len(simpleIcons), " 个")
 }
 
-func RegisterRouting(router *gin.Engine) {
+func RegisterIconRouting(router *gin.Engine) {
 	mdiExample, _ := fs.Sub(SimpleIconsAssets, "icons")
 	router.StaticFS(_ASSETS_ICON_URI, http.FS(mdiExample))
 }

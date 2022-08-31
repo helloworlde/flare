@@ -7,8 +7,8 @@ import (
 
 func TaskForSimpleIcons() {
 	fmt.Println("开始复制 Simple Icon 资源")
-	_PrepareDirectory("pkg/simpleicon/icons")
-	err := _CopyDirectory("embed/assets/vendor/simple-icons", "pkg/simpleicon/icons")
+	_PrepareDirectory("pkg/assets/icons")
+	err := _CopyDirectory("embed/assets/vendor/simple-icons", "pkg/assets/icons")
 	if err != nil {
 		fmt.Println("复制 Simple Icon 错误: ", err)
 		os.Exit(-1)
